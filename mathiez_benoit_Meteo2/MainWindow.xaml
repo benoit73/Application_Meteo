@@ -11,22 +11,61 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="Lab_Ville" Content="Montcel" />
-            <Label x:Name="Lab_Jour" Content="Jeudi" Grid.Column="1"/>
-        </Grid>
+        <Image x:Name="ImgFond" Source="C:\Users\SIO\source\repos\mathiez_benoit_Meteo2\mathiez_benoit_Meteo2\Ressources\revard3.jpg" Grid.ColumnSpan="3" Grid.RowSpan="4" Panel.ZIndex="-1" Width="450" Height="800" Stretch="Fill"/>
 
-        <Image x:Name="Img_CentralImage" Grid.Row="1"/>
-        <Label x:Name="Lab_Temp" Grid.Row="2" Content="0*"/>
+        <StackPanel Orientation="Vertical">
+            <ComboBox x:Name="Cb_Villes" SizeChanged="Cb_Villes_SizeChanged" SelectionChanged="Cb_Villes_SelectionChanged" Height="60" FontSize="22">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+            <TextBlock Text="Ajouter une ville :" FontSize="18"/>
+            <TextBox x:Name="Tb_VilleRecherche" FontSize="18" PreviewKeyDown="Tb_VilleRecherche_PreviewKeyDown"/>
+        </StackPanel>
 
 
+        <Rectangle Grid.ColumnSpan="3" Grid.Row="2" Height="70" VerticalAlignment="Top" Fill="#B2FFFFFF"/>
+        <Label x:Name="Lab_Pays" Content="Espagne" FontSize="20" Grid.Column="1"/>
+        <Image x:Name="Img_CentralImage" Grid.Row="1" Grid.ColumnSpan="3"/>
+        <Label x:Name="Lab_Temp" Grid.Row="2" Content="0*" FontSize="36" FontWeight="Bold"/>
+        <Label x:Name="Lab_Condition" Grid.Row="2" Grid.Column="1" Content="Pleut" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+            <Label x:Name="Lab_Jour" Content="Jeudi" FontSize="20"/>
+            <Label x:Name="Lab_JourS" FontSize="30"/>
+        </StackPanel>
+        
+        <Button x:Name="Lab_Auj" Grid.Row="3"  Click="Lab_Auj_Click" Style="{StaticResource CustomButtonStyle}">
+            <StackPanel>
+                <Image x:Name="Img_Auj" Width="50" Height="50"/>
+                <Label Content="Aujourd'hui"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="Lab_Demain" Grid.Column="1" Grid.Row="3"  Click="Lab_Demain_Click" Style="{StaticResource CustomButtonStyle}">
+            <StackPanel>
+                <Image x:Name="Img_Demain" Width="50" Height="50"/>
+                <Label Content="Demain"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="Lab_Apres" Grid.Column="2" Grid.Row="3" Click="Lab_Apres_Click" Style="{StaticResource CustomButtonStyle}">
+            <StackPanel>
+                <Image x:Name="Img_Apres" Width="50" Height="50"/>
+                <Label Content="Après demain"/>
+            </StackPanel>
+        </Button>
 
 
 

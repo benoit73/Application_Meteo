@@ -101,5 +101,8 @@
   <ItemGroup>
     <Folder Include="Entity\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\revard.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
