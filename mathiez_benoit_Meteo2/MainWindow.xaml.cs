@@ -18,21 +18,35 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Globalization;
 using mathiez_benoit_Meteo2.Entity;
+using System.Configuration;
+
 namespace mathiez_benoit_Meteo2
 {
 
     public partial class MainWindow : Window
     {
+        public List<string> mesVillesList = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
-            Cb_Villes.Items.Add("Annecy");
-            Cb_Villes.SelectedItem = "Annecy";
+            InitialiserVilles();
             Lab_Auj.Background = Brushes.CornflowerBlue;
-
             _ = Aujourdhui(); // Utilisation de "_" pour ignorer la tâche retournée par la méthode asynchrone
         }
 
+        public void InitialiserVilles()
+        {
+            string Mesvilles_ = ConfigurationManager.AppSettings["MesVilles"];
+            string[] MesVilles = Mesvilles_.Split(',');
+            foreach (string ville in MesVilles)
+            {
+                mesVillesList.Add(ville);
+            }
+            Cb_Villes.ItemsSource = mesVillesList;
+            int index = mesVillesList.Count - 1;
+            Cb_Villes.SelectedItem = mesVillesList[index];
+        }
         public async Task<Root> GetMeteo()
         {
             string ville = Cb_Villes.SelectedItem.ToString();
@@ -181,9 +195,19 @@ namespace mathiez_benoit_Meteo2
                     else
                     {
                         MessageBox.Show("Ville ajoutée");
-                        Cb_Villes.Items.Add(ville);
+                        // Charge la configuration actuelle à partir du fichier App.config
+                        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                        // Modifie la valeur de la clé
+                        config.AppSettings.Settings["Mesvilles"].Value += $",{ville}";
+
+                        // Enregistre les modifications
+                        config.Save(ConfigurationSaveMode.Modified);
+
+                        // Force le rechargement de la configuration
+                        ConfigurationManager.RefreshSection("appSettings"); mesVillesList.Add(ville);
+                        Cb_Villes.Items.Refresh();                        
                         Cb_Villes.SelectedItem = ville;
-                        Tb_VilleRecherche.Text = "";
                     }
                 }
             }
